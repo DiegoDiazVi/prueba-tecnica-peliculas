@@ -1,8 +1,8 @@
-export function Movies ({movies}) {
+export function Movies ({movies, notFound}) {
     return (
         <>
             {
-                movies.map(movie => {
+                movies?.map(movie => {
                     return (
                         <section key={movie.id}>
                             <p className='title'>{movie.title}</p>

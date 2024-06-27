@@ -29,7 +29,7 @@ function App() {
         {error && <p style={{color:'red'}}>{error}</p>}
       </header>
       <main className='movies-container'>
-        { loading ? <p>Cargando ...</p> : <Movies movies={movies}/> }
+        { loading ? <p>Cargando ...</p> : <Movies movies={movies} /> }
       </main>
     </div>
   )
