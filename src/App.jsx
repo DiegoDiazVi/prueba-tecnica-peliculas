@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Movies } from './components/Movies'
+import { fetchMovies } from './services/fetchMovies'
 import './App.css'
 
 function App() {
@@ -11,6 +13,15 @@ function App() {
     setSearch(query);
   }
 
+  useEffect(() => {
+    if (search === '') return;
+    fetchMovies(search)
+      .then(response => {
+        setMovies(response)
+      })
+      .catch(error => console.log(error))
+  }, [search])
+
   return (
     <div>
       <header>
@@ -20,6 +31,9 @@ function App() {
           <button type='submit'>Search</button>
         </form>
       </header>
+      <main>
+        { movies && <Movies movies={movies}/> }
+      </main>
     </div>
   )
 }

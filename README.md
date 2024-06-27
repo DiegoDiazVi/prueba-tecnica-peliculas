@@ -11,9 +11,9 @@ Requerimientos:
 
 [ x ] Que el formulario funcione
 
-[ ] Hacer el fetching de datos a la API
+[ x ] Hacer el fetching de datos a la API
 
-[ ] Lista las películas y muestra el título, año y poster.
+[ x ] Lista las películas y muestra el título, año y poster.
 
 [ ] Haz que las películas se muestren en un grid responsive.
 
