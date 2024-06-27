@@ -23,15 +23,15 @@ function App() {
   }, [search])
 
   return (
-    <div>
-      <header>
+    <div className='page'>
+      <header className='header'>
         <h1>Movies search</h1>
-        <form onSubmit={handlerSubmit}>
+        <form className='form' onSubmit={handlerSubmit}>
           <input name='query' type="text" placeholder='Avengers, Matrix, Cars...'/>
           <button type='submit'>Search</button>
         </form>
       </header>
-      <main>
+      <main className='movies-container'>
         { movies && <Movies movies={movies}/> }
       </main>
     </div>
