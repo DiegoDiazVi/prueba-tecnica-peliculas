@@ -15,7 +15,7 @@ Requerimientos:
 
 [ x ] Lista las películas y muestra el título, año y poster.
 
-[ ] Haz que las películas se muestren en un grid responsive.
+[ x ] Haz que las películas se muestren en un grid responsive.
 
 
 Primera iteración:
