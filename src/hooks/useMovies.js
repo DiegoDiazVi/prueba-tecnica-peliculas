@@ -15,7 +15,7 @@ function useMovies({search}) {
             setMovies(response)
             previousSearch.current = search
         } catch (error) {
-            console.log(error)
+            console.error(error.message)
         } finally {
             setLoading(false)
         }
