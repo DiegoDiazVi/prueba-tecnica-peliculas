@@ -4,7 +4,7 @@ const fetchMovies = async (search) => {
     try {
         const response = await fetch(`${API_URL}?apikey=${API_KEY}&s=${search}`);
         const json = await response.json();
-        if (!json.response) {
+        if (json.Response === 'False') {
             throw new Error(json.Error)
         }
         const { Search } = json
@@ -18,7 +18,7 @@ const fetchMovies = async (search) => {
         })
         return mappedMovies
     } catch (error) {
-        console.error(error.message);
+        throw error
     }
 }
 export { fetchMovies }
