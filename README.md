@@ -9,7 +9,7 @@ Requerimientos:
 
 [ x ] Necesita mostrar un input para buscar la película y un botón para buscar.
 
-[ ] Que el formulario funcione
+[ x ] Que el formulario funcione
 
 [ ] Hacer el fetching de datos a la API
 
