@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { fetchMovies } from '../services/fetchMovies';
 
 function useMovies({search}) {
+    const previousSearch = useRef(search)
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
+
     const getMovies = async () => {
-        if(search === '') return
+        if((search === '') || (previousSearch.current === search)) return
+
         try {
             setLoading(true)
             const response = await fetchMovies(search)
             setMovies(response)
-            setLoading(false)
+            previousSearch.current = search
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
