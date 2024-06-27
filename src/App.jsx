@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react'
 import { Movies } from './components/Movies'
-import { fetchMovies } from './services/fetchMovies'
+import { useMovies } from './hooks/useMovies'
+import { useSearch } from './hooks/useSearch';
 import './App.css'
 
 function App() {
-  const [search, setSearch] = useState('')
-  const [movies, setMovies] = useState([])
+  const { movies, loading, getMovies } = useMovies();
+  const { search, error, setSearch} = useSearch();
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    const query = event.target.query.value
-    setSearch(query);
+    const newSearch = event.target.query.value
+    setSearch(newSearch);
+    getMovies(newSearch)
   }
-
-  useEffect(() => {
-    if (search === '') return;
-    fetchMovies(search)
-      .then(response => {
-        setMovies(response)
-      })
-      .catch(error => console.log(error))
-  }, [search])
 
   return (
     <div className='page'>
@@ -30,9 +22,10 @@ function App() {
           <input name='query' type="text" placeholder='Avengers, Matrix, Cars...'/>
           <button type='submit'>Search</button>
         </form>
+        {error && <p style={{color:'red'}}>{error}</p>}
       </header>
       <main className='movies-container'>
-        { movies && <Movies movies={movies}/> }
+        { loading ? <p>Cargando ...</p> : <Movies movies={movies}/> }
       </main>
     </div>
   )
