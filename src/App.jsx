@@ -1,9 +1,10 @@
+import { useCallback } from 'react';
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch';
 import debounce from 'just-debounce-it';
 import './App.css'
-import { useCallback } from 'react';
+import { Header } from './components/Header';
 
 function App() {
   const { search, error, setSearch } = useSearch();
@@ -14,11 +15,6 @@ function App() {
     getMovies({ search })
   }
 
-  const debouceGetMovies = useCallback(
-    debounce((search) => getMovies({ search }), 300),
-    [getMovies]
-  )
-
   const handlerInput = (event) => {
     const inputValue = event.target.value
     if (inputValue === ' ') return
@@ -26,26 +22,15 @@ function App() {
     debouceGetMovies(inputValue)
   }
 
+  const debouceGetMovies = useCallback(
+    debounce((search) => getMovies({ search }), 300),
+    [getMovies]
+  )
+
+
   return (
     <div className='page'>
-      <header className='header'>
-        <h1>Movies search</h1>
-        <form className='form' onSubmit={handlerSubmit}>
-          <input
-            name='query'
-            type="text"
-            style={{
-              border: '1px solid transparent',
-              borderColor: error ? 'red' : 'transparent'
-            }}
-            value={search}
-            placeholder='Avengers, Matrix, Cars...'
-            onInput={handlerInput}
-          />
-          <button type='submit'>Search</button>
-        </form>
-        {error && <p style={{color:'red'}}>{error}</p>}
-      </header>
+      <Header error={error} search={search} handlerInput={handlerInput} handlerSubmit={handlerSubmit}/>
       <main className='movies-container'>
         { loading ? <p>Cargando ...</p> : <Movies movies={movies} /> }
       </main>
