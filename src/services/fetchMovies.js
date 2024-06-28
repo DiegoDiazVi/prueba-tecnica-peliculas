@@ -1,8 +1,9 @@
 import { API_KEY, API_URL } from "../utils/constants";
 
 const fetchMovies = async (search) => {
+    const searchParams = new URLSearchParams({ apikey: API_KEY, s: search });
     try {
-        const response = await fetch(`${API_URL}?apikey=${API_KEY}&s=${search}`);
+        const response = await fetch(`${API_URL}?${searchParams}`);
         const json = await response.json();
 
         if (json.Response === 'False') {
