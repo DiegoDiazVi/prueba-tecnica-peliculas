@@ -1,21 +1,29 @@
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch';
+import debounce from 'just-debounce-it';
 import './App.css'
+import { useCallback } from 'react';
 
 function App() {
   const { search, error, setSearch } = useSearch();
-  const { movies, loading, getMovies } = useMovies({search});
+  const { movies, loading, getMovies } = useMovies({ search });
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    getMovies()
+    getMovies({ search })
   }
+
+  const debouceGetMovies = useCallback(
+    debounce((search) => getMovies({ search }), 300),
+    [getMovies]
+  )
 
   const handlerInput = (event) => {
     const inputValue = event.target.value
     if (inputValue === ' ') return
     setSearch(inputValue)
+    debouceGetMovies(inputValue)
   }
 
   return (
