@@ -7,7 +7,7 @@ export function useSearch() {
 
     useEffect( () => {
         if (isFirstSearch.current) {
-            isFirstSearch.current = search === ''
+            isFirstSearch.current = false
             return
         }
         if (search === '') {
